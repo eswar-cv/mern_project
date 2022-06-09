@@ -1,0 +1,475 @@
+<html lang="en" onload="update_total()">
+<title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <head>
+        <script>
+            //var jsonstr = '[{"product_id" : "1", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "2", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "3", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "4", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "5", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "6", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}, {"product_id" : "7", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "8799", "mrp" : "9999", "off" : "10% off"}]';
+            //var database = JSON.parse(jsonstr);
+            var quantity_info = [{qty : "1"}, {qty : "2"}, {qty : "3"}, {qty : "4"}, {qty : "5"}, {qty : "6"}, {qty : "7"}]
+            //console.log(database)
+        </script>
+        <script src = "https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script>
+            $(function(){
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+        </script>
+        <div id = "header"></div>
+        <script>
+            const queryString = window.location.search;
+            //console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            //console.log(urlParams.get("sq"));
+            console.log(urlParams);
+            function proceed(){
+                window.open("address.html?user_id=01&count=" + $("#item_count").text() + "&mrp=" + $("#total_mrp").text() + "&discount="+$("#item_discount").text()+"&price="+ $("#price_total").text());
+
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div id = "main">
+            <div id = "maincart">
+                <div id = "CartHead">
+                    <div id = "carttext">MY CART</div>
+                </div>
+            </div>
+            <div id = "PriceTotal">
+                <div id = "ShowPrice">
+                    <div id = "PT">PRICE DETAILS</div>
+                    <div id = "DT">
+                        <div id = "total_mrp_main"><span>Price (</span><span id = "item_count"></span><span></span> Items) <span id = "total_mrp"></span></div>
+                        <div id = "item_discount_main"><span>Discount </span><span id = "item_discount"></span></div>
+                        <div id = "price_total_main"><span>Final Price </span><span id = "price_total"></span></div>
+                        <button id = "place_order_main" onclick="proceed()">Place Order</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <style>
+            #price_total_main{
+                font-weight: 600;
+            }
+            #item_discount_main, #total_mrp_main, #price_total_main{
+                border : 0px solid black;
+                background-color: #eeeeee;
+                margin : 2px 4px 2px 4px;
+                padding : 15px 10px 15px 10px;
+                font-size: 18px;
+                height : 22px;
+                border : 1px solid #dddddd;
+                font-family: Roboto,Arial,sans-serif;
+            }
+            #price_total_main{
+                background-color: #f6f6f6;
+            }
+            #place_order_main{
+                border-radius: 0px 0px 5px 5px;
+                justify-items: stretch;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                font-family : Roboto, Arial, sans-serif;
+                font-size : 22px;
+                font-weight : 600;
+                background-color: #fb641b;
+                background-color: #069420;
+                color : white;
+                width: 392px;
+                margin : 4px;
+                padding : 15px;
+                border : 1px solid #969696;
+            }
+            
+            #total_mrp, #item_discount, #price_total{
+                float : right;
+                height : 30px;
+                width : 220px;
+                text-align: right;
+            }
+            #CartHead{
+                background-color: #dddddd;
+                height : 48px;
+                display : flex;
+                align-items: center;
+                justify-content: left;
+                border-radius : 5px 5px 0px 0px;
+                margin : 0px 0px 0px 0px;
+                margin-bottom: 0px;
+            }
+            #maincart{
+                font-family: Roboto,Arial,sans-serif;
+                box-shadow : 0px 0px 42px rgba(69, 69, 69, 0.5);
+                border-radius : 5px;
+                margin : 40px 0px 40px 0px;
+                padding: 4px 4px 3px 4px;
+                background-color: #696969;
+            }
+            #PT{
+                background-color: #f9f9f9;
+                height : 40px;
+                width : 372px;
+                margin : 4px;
+                padding : 10px;
+                text-align: center;
+                display : flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                font-family: Roboto,Arial,sans-serif;
+                border-radius: 5px 5px 0px 0px;
+            }
+            #carttext{
+                font-size: 28px;
+                font-family: Roboto,Arial,sans-serif;
+                margin-left : 15px;
+                margin-top : 5px;
+                border-radius: 5px;
+            }
+            #PriceTotal{
+                display : grid;
+                position : sticky;
+                top : 100px;
+                right : 0px;
+                grid-template-columns: auto auto auto;
+                background-color : #696969;
+                height : max-content;
+                width : 400px;
+                border-radius : 5px;
+                margin : 30px;
+                margin-left : 100px;
+                box-shadow: 0 5px 42px rgba(69, 69, 69, 0.5);
+                
+            }
+        </style>
+        <script type = "text/babel">
+            class CartItem extends React.Component{
+                render(){
+                    //const thisdiv = ReactDOM.findDOMNode(this);
+                    return(
+                        <div id="cartitem">
+                            <div id="iteminfo">
+                                <div id = "item_img">
+                                    <a href = {"product_page.html?user_id=" + urlParams.get("user_id") + "&product_id=" + this.props.data.product_id}><img src = {this.props.data.images[0]}/></a>
+                                </div>
+                                <div>
+                                    <a href = {"product_page.html?user_id=" + urlParams.get("user_id") + "&product_id=" + this.props.data.product_id}><div style = {{marginTop:"30px", marginLeft: "10px"}}>{this.props.data.title}</div></a>   
+                                </div>
+                            </div>
+                            <div id="itemcost">
+                                <div id = "display_price">
+                                    ₹<div id = "disp_pr">{this.props.data.price}</div>    
+                                </div>
+                                <div id = "select_quantity">
+                                    <div id = "qty">
+                                        <button id = "btn_decr" onClick = {() => change_qty(this, -1, this.props.data["product_id"])}>-</button>
+                                        <input className = "nohighlight" id = "qty_num" type = "number" min = "0" onClick = {() => update_total(database, quantity_info)}/>
+                                        <button id = "btn_incr" onClick = {() => change_qty(this, 1, this.props.data["product_id"])}>+</button>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    )
+                    
+                }
+            }
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+}
+            function get_index(database, product_id){
+                for (let i = 0; i < database.length; i++){
+                    //console.log("checkcheck", database[i].product_id);
+                    if (database[i].product_id == product_id){
+                        console.log("product_id:", i)
+                        return i;
+                    }                   
+                }
+                return -1;
+            }
+            async function change_qty(maindiv, changevalue, product_id){
+                console.log("change_qty called")
+                var thisdiv = ReactDOM.findDOMNode(maindiv);
+                //console.log(thisdiv.childNodes[1].childNodes[1].childNodes[0].childNodes[1].value);
+                var inputbox = thisdiv.childNodes[1].childNodes[1].childNodes[0].childNodes[1];
+                if (inputbox.value > 0 || (inputbox.value == 0 && changevalue == 1)){
+                    var final_value = Number(changevalue) + Number(inputbox.value);
+                    inputbox.value = final_value;
+                    var itemurl = "/?req_type=update_cart&user_id="+ urlParams.get("user_id") + "&product_id=" + product_id + "&qty=" + final_value;
+            console.log("sending requrest");
+            $.get(itemurl, function(product_data, status){
+                
+                for (let p = 0; p < 100000; p++) console.log(product_data);
+                console.log(product_id);
+                // await sleep(1);
+                window.location.reload();
+                }
+            )
+            // console.log(product_id);
+            //     window.location.reload();
+                    
+                }
+                /*
+                var itemurl = "http://localhost:6969/?req_type=update_cart&user_id=01&product_id=" + product_id + "&qty=10";
+                $.get(itemurl, function(product_data, status){
+                    
+                    }
+                )*/
+                //update_total(database, quantity_info);
+               
+            }
+            function get_price_info(database, quantity_info){
+                var final_price = 0;
+                var final_mrp = 0;
+                for (let i = 0; i < database.length; i++){
+                    //console.log((database[i]["price"]));// * Number(quantity_info[i]["qty"]))
+                    final_price += Number(database[i]["price"]) * Number(quantity_info[i]["qty"]);
+                    final_mrp += Number(database[i]["mrp"]) * Number(quantity_info[i]["qty"]);
+                }
+                var offer = 100 - ((final_price / final_mrp) * 100)
+                return {"price" : Number(final_price), "mrp" : final_mrp, "offer" : offer, "discount" : final_price - final_mrp}
+            }
+            function showCartProduct(maindiv, data, quantity){
+                var newdiv = document.createElement("div");
+                document.querySelector(maindiv).appendChild(newdiv);    
+                ReactDOM.render(
+                    <CartItem data = {data} qty = {quantity}></CartItem>, newdiv
+                    )
+            }
+            function NoProducts(){
+                console.log("No products are added to cart")
+                var newdiv = document.createElement("div"); // created newe element
+                document.querySelector("#maincart").appendChild(newdiv); // added the new element to maindiv
+                ReactDOM.render(
+                    <div id = "show_np"><div>Your cart is empty</div></div>, newdiv
+                )
+            }
+            function refresh_cart(){
+                const url_ = new URLSearchParams(queryString);
+                var url__ = "/?req_type=send_cart&user_id=" + url_.get("user_id");
+                $.get(url__, function(mydata, status){
+                        // console.log(mydata);
+                        const cartitems = document.querySelectorAll("#cartitem");
+                        if (Number(mydata.length) - 1 != cartitems.length){
+                            // console.log("cart items changed", Number(mydata.length) - 1, cartitems.length);
+                            window.location.reload();
+                        }
+                        else{
+                            console.log("cart items not changed");
+                        }
+                    })
+            }
+            setInterval(() => {
+                refresh_cart();
+            }, 5000);
+            function render_page(){
+                // loading the cart contents to the page
+                const queryString = window.location.search;
+                //console.log(queryString);
+                const url_ = new URLSearchParams(queryString);
+                    var url__ = "/?req_type=send_cart&user_id=" + url_.get("user_id");
+                    //console.log(url__)
+                    //console.log("http://localhost:6969/?req_type=cart&user_id=01")
+                    //console.log("http://localhost:6969/?req_type=cart&user_id=" + url_.get("user_id"));
+                    $("#item_count").text("0");
+                    $("#item_discount").text("0");
+                    $("#price_total").text("0");
+                    $("#total_mrp").text("0");
+                    $.get(url__, function(mydata, status){
+                        console.log(mydata)
+                        if (mydata.length > 0){
+                            for (let val = 0; val < mydata.length; val++){
+                                var itemurl = "/?req_type=product_details&product_id=" + mydata[val].product_id;
+                                $.get(itemurl, function(product_data, status){
+                                    $("#item_count").text(Number($("#item_count").text()) + 1);
+                                    $("#price_total").text(Number($("#price_total").text()) + Number(product_data[0].price * Number(mydata[val].qty)));
+                                    $("#total_mrp").text(Number($("#total_mrp").text()) + Number(product_data[0].mrp * Number(mydata[val].qty)));
+                                    var discount = Number($("#price_total").text()) / Number($("#total_mrp").text()) * 100;
+                                    $("#item_discount").text(Math.round(100 - discount, 2));
+                                    showCartProduct("#maincart", product_data[0], mydata[val].qty);
+                                    var all_inputs = document.querySelectorAll("#qty_num");
+                                    for (let values = 0; values < all_inputs.length; values++){
+                                        all_inputs[values].value = mydata[values].qty;
+                        }
+                                    }
+                                )
+                        }                        
+                        
+                        //showCartProduct("#maincart", mydata[val]);                        
+                        }
+                        else NoProducts();  
+                    })
+            }
+            render_page();
+            
+
+            /*
+            var itemurl = "http://localhost:6969/?req_type=update_cart&user_id=01&product_id=01&qty=10";
+            $.get(itemurl, function(product_data, status){
+                
+                }
+            )
+            */
+            
+
+
+
+
+            /*/console.log(database)
+            /
+            function update_total(){
+                var total_quantity = document.querySelectorAll("#cartitem").length;
+                console.log("total_quantity:", total_quantity);
+                var total_mrp_containers = document.querySelectorAll("#disp_pr");
+                var total_mrp = 0;
+                for (let val = 0; val < total_mrp_containers.length; val++){
+                    total_mrp = Number(total_mrp) + Number(total_mrp_containers[val].props.data.price);
+                }
+                console.log(total_mrp);
+                $("#item_count").text(total_quantity);
+                $("#item_discount").text();
+                $("#price_total").text();
+                $("#total_mrp").text(total_mrp)
+            } 
+            update_total();
+            */
+        </script>
+        <style>
+            #show_np{
+                width : 850px;
+                background-color: #fbfbfb;
+                color: #000000;
+                font-size: 69px;
+                font-weight: 600;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 28px;
+                border-radius: 0px 0px 5px 5px;
+                border: 1px solid #dddddd;
+            }
+            #qty{
+                height : 40x;
+                justify-items: stretch;
+            }
+            #select_quantity input{
+                width : 80px;
+                height : 34px;
+                border-radius : 0px;
+                border : 0px;
+                background-color: #ededed;
+                font-size: 18px;
+                text-align: center;
+            }
+            div{
+                border : 0px solid black;
+            }
+            /*CSS for disabling the input spinners*/
+            input[type=number]::-webkit-inner-spin-button, 
+            input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0; 
+            }
+            #select_quantity button{
+                width : 32px;
+                height : 34px;
+                font-size: 20px;
+                border : 0px;
+                background-color : #dcdcdc;
+            }
+            #select_quantity{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #btn_incr{
+                border-radius : 0px 4px 4px 0px;
+            }
+            #btn_decr{
+                border-radius : 4px 0px 0px 4px;
+            }
+            /*
+            #item_details{
+                border : 1px solid black;
+            }
+            #qty_num{
+                border : 1px solid black;
+            }
+            */
+            
+            #display_price{
+                border : 0px solid black;
+                height : 125px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #select_quantity{
+                border : 0px solid black;
+                height : 85px;
+            }
+            
+            
+            
+            #item_cost{
+                display : grid;
+                grid-template-rows : auto auto;
+            }
+            #item_img{
+                
+                width : 200px;
+                display : flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #item_img img{
+                max-width : 170px;
+                max-height : 170px;
+            }
+            #iteminfo{
+                display : grid;
+                grid-template-columns: auto auto;
+                background-color : white;
+                margin : 8px 2px 8px 8px;
+                border-radius : 10px 0px 0px 10px;
+            }
+            #itemcost{
+                background-color : white;
+                margin : 8px 8px 8px 2px;
+                border-radius : 0px 10px 10px 0px;
+            }
+            #cartitem{
+                width : 850px; 
+                background-color : #ffffff;
+                height : 230px;
+                border-radius : 0px;
+                display : grid;
+                margin : 2px 0px 2px 0px;
+                /*margin : 5px 10px 10px 5px;*/
+                grid-template-columns: 600px 250px;
+                /*box-shadow: 0px 0px 5px rgba(69, 69, 69, 0.5) inset;*/
+            }
+            #main{
+                display : grid;
+                grid-template-columns: auto auto;
+                justify-content : center;
+                align-items: top;
+                width : 100%;                
+            }
+            
+        </style>
+    </body>
+    <footer id = "footer">
+    </footer>
+    <script>
+
+    </script>
+</html>

@@ -1,0 +1,241 @@
+<html>
+<head>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+  body{
+    background: #ffffff;
+    padding: 0 10px;
+  }
+  .box{
+    margin-top: 120px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    margin: 20px auto;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
+    padding: 30px;
+  }
+  
+  .box .title{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #2874f0;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  .box .form{
+    width: 100%;
+  }
+  .box{
+    
+    box-shadow : 0px 0px 42px rgba(69, 69, 69, 0.5);
+  }
+  
+  .box .form .input{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .box .form .input label{
+     width: 200px;
+     color: #757575;
+     margin-right: 10px;
+    font-size: 14px;
+  }
+  
+  .box .form .input .input,
+  .box .form .input .textarea{
+    width: 100%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .box .form .input .textarea{
+    width: 100%;
+    height: 125px;
+    resize: none;
+  }
+  
+  .box .form .input .custom_select{
+    position: relative;
+    width: 100%;
+    height: 37px;
+  }
+  
+  .box .form .input .custom_select:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+  }
+  
+  .box .form .input .custom_select select{
+    -webkit-appearance: none;
+    -moz-appearance:   none;
+    appearance:        none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+  }
+  
+  
+  .box .form .input .input:focus,
+  .box .form .input .textarea:focus,
+  .box .form .input .custom_select select:focus{
+    border: 1px solid #2874f0;
+  }
+  
+  .box .form .input p{
+     font-size: 14px;
+     color: #757575;
+  }
+  .box .form .input .check{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+  .box .form .input .check input[type="checkbox"]{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  .box .form .input .check .checkmark{
+    width: 15px;
+    height: 15px;
+    border: 1px solid #fec107;
+    display: block;
+    position: relative;
+  }
+  .box .form .input .check .checkmark:before{
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 5px;
+    height: 2px;
+    border: 2px solid;
+    border-color: transparent transparent #fff #fff;
+    transform: rotate(-45deg);
+    display: none;
+  }
+  .box .form .input .check input[type="checkbox"]:checked ~ .checkmark{
+    background: #fec107;
+  }
+  
+  .box .form .input .check input[type="checkbox"]:checked ~ .checkmark:before{
+    display: block;
+  }
+  
+  .box .form .input .btn{
+    width: 100%;
+     padding: 8px 10px;
+    font-size: 15px; 
+    border: 0px;
+    background:  #2874f0;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+  }
+  
+  .box .form .input .btn:hover{
+    background: #2874f0;
+  }
+  
+  .box .form .input:last-child{
+    margin-bottom: 0;
+  }
+  
+  @media (max-width:420px) {
+    .box .form .input{
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .box .form .input label{
+      margin-bottom: 5px;
+    }
+    .box .form .input.terms{
+      flex-direction: row;
+    }
+  }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="title">
+      Address Form
+    </div>
+    <div class="form">
+       <div class="input">
+          <label>First Name</label>
+          <input type="text" class="input">
+       </div>  
+        <div class="input">
+          <label>Last Name</label>
+          <input type="text" class="input">
+       </div>  
+       <div class="input">
+          <label>Password</label>
+          <input type="password" class="input">
+       </div>  
+      <div class="input">
+          <label>Confirm Password</label>
+          <input type="password" class="input">
+       </div>  
+        <div class="input">
+          <label>Email Address</label>
+          <input type="text" class="input">
+       </div> 
+      <div class="input">
+          <label>Phone Number</label>
+          <input type="text" class="input">
+       </div> 
+      <div class="input">
+          <label>Address</label>
+          <textarea class="textarea"></textarea>
+       </div> 
+      <div class="input">
+          <label>Postal Code</label>
+          <input type="text" class="input">
+       </div> 
+      <div class="input">
+        <input type="submit" value="Add Address" onclick = "proceed()" class="btn">
+      </div>
+    </div>
+</div>	
+	
+</body>
+<script>
+  const queryString = window.location.search;
+            //console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+  function proceed(){
+                window.open("finalbill.html" + queryString,"_self")
+                
+            }
+</script>
+</html>

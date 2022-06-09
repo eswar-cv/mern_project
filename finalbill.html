@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <script src = "https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script>
+            $(function(){
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+        </script>
+        <div id = "header"></div>
+        <script>
+            const queryString = window.location.search;
+            //console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            //console.log(urlParams.get("sq"));
+            
+        </script>
+        <style>
+            div{
+                place-items: center;
+            }
+            .everything
+            {
+                margin-top: 1cm;
+                font-size: 20px;
+                padding: 10px;
+            };
+            #pay1,#pay2,#pay3{
+                font-size:20 px;
+            }
+            #butto{
+                border-radius: 5px;
+                color:#fff;
+                font-size: 20px;
+                background-color: #2874f0;
+                margin: 20px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id = "main">
+            <div id = "PriceTotal">
+                <div id = "ShowPrice">
+                    <div id = "PT">ORDER DETAILS</div>
+                    <div id = "DT">
+                        <div id = "total_mrp_main"><span>Price (</span><span id = "item_count"></span><span></span> Items) <span id = "total_mrp"></span></div>
+                        <div id = "item_discount_main"><span>Discount </span><span id = "item_discount"></span></div>
+                        <div id = "price_total_main"><span>Final Price </span><span id = "price_total"></span></div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id = choose_payment>
+                <div id = "choose_pay">Choose Payment Method</div>
+                <div>
+                    <div id = "pay_type">
+                        <input type="radio" id="pay1" name="payment" value="upi">
+                        <label for="pay1">UPI</label><br>
+                    </div>
+                    <div id = "pay_type">
+                        <input type="radio" id="pay2" name="payment" value="card">
+                        <label for="pay2">Credit/Debit card</label><br>
+                    </div>
+                    
+                    <div id = "pay_type">
+                        <input type="radio" id="pay3" name="payment" value="upi">
+                        <label for="pay3">Wallet</label><br>
+                    </div>
+                    <div><a><button id = "pay_btn">Make Payment</button></a></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#item_count").text(urlParams.get("count"));
+            $("#total_mrp").text(urlParams.get("mrp"));
+            $("#item_discount").text(urlParams.get("discount"));
+            $("#price_total").text(urlParams.get("price"));
+        </script>
+        <style>
+            #pay_btn{
+                height: 48px;
+                text-align: center;
+                display : flex;
+                align-items: center;
+                justify-content: center;
+                width: 440px;
+                background-color: #fb641b;
+                border-radius: 0px 0px 5px 5px;
+                border: 0px;
+                font-size: 22px;
+                text-decoration: none;
+            }
+            #pay_type{
+                height: 48px;
+                text-align: center;
+                display : flex;
+                align-items: center;
+                justify-content: left;
+                padding-left: 30px;
+                font-size: 18px;
+
+            }
+            #choose_pay{
+                width: 440px;
+                height: 48px;
+                text-align: center;
+                display : flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                background-color: #efefef;
+                border-radius: 4px 4px 0px 0px;
+            }
+            #choose_payment{
+                box-shadow : 0px 0px 12px rgba(69, 69, 69, 0.5);
+                font-family: Roboto,Arial,sans-serif;
+            }
+            #main{
+                display: grid;
+                grid-template-columns: auto;
+                align-items: center;
+                justify-content: top;
+            }
+        #price_total_main{
+            font-weight: 600;
+        }
+        #item_discount_main, #total_mrp_main, #price_total_main{
+            border : 0px solid black;
+            background-color: #eeeeee;
+            margin : 2px 4px 2px 4px;
+            padding : 15px 10px 15px 10px;
+            font-size: 18px;
+            height : 22px;
+            border : 1px solid #dddddd;
+            font-family: Roboto,Arial,sans-serif;
+        }
+        #price_total_main{
+            background-color: #f6f6f6;
+            border-radius: 0px 0px 5px 5px;
+            margin-bottom: 5px;
+        }
+        #place_order_main{
+            border-radius: 0px 0px 5px 5px;
+            justify-items: stretch;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            font-family : Roboto, Arial, sans-serif;
+            font-size : 22px;
+            font-weight : 600;
+            background-color: #fb641b;
+            background-color: #069420;
+            color : white;
+            width: 392px;
+            margin : 4px;
+            padding : 15px;
+            border : 1px solid #969696;
+        }
+        
+        #total_mrp, #item_discount, #price_total{
+            float : right;
+            height : 30px;
+            width : 220px;
+            text-align: right;
+        }
+        #CartHead{
+            background-color: #dddddd;
+            height : 48px;
+            display : flex;
+            align-items: center;
+            justify-content: left;
+            border-radius : 5px 5px 0px 0px;
+            margin : 0px 0px 0px 0px;
+            margin-bottom: 0px;
+        }
+        #maincart{
+            font-family: Roboto,Arial,sans-serif;
+            box-shadow : 0px 0px 42px rgba(69, 69, 69, 0.5);
+            border-radius : 5px;
+            margin : 40px 0px 40px 0px;
+            padding: 4px 4px 3px 4px;
+            background-color: #696969;
+        }
+        #PT{
+            background-color: #f9f9f9;
+            height : 40px;
+            width : 372px;
+            margin : 4px;
+            padding : 10px;
+            text-align: center;
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-family: Roboto,Arial,sans-serif;
+            border-radius: 5px 5px 0px 0px;
+        }
+        #carttext{
+            font-size: 28px;
+            font-family: Roboto,Arial,sans-serif;
+            margin-left : 15px;
+            margin-top : 5px;
+            border-radius: 5px;
+        }
+        #PriceTotal{
+            display : grid;
+            right : 0px;
+            grid-template-columns: auto auto auto;
+            background-color : #696969;
+            height : max-content;
+            width : 400px;
+            border-radius : 5px;
+            margin : 30px;
+            box-shadow: 0 5px 42px rgba(69, 69, 69, 0.5);
+            margin: 120px 0px 120px 0px;
+            
+        }
+        </style>
+    </body>
+    <footer id = "footer"></footer>
+    </footer>
+    </html>

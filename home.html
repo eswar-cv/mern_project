@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script>
+            $(function(){
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+        </script>
+        <div id = "header">
+            
+        </div>
+    </head>
+
+    <body>
+        <div id = "main_img">
+            <img src = "images/homeimage.jpg"/>
+        </div>
+
+        <div id = "maindiv"></div>
+        <script type = "text/babel">
+            class MainDisplay extends React.Component{
+                render(){
+                    return(
+                        <div id = "mainDisplay">
+                            <span id = "title_main"><div>&nbsp;&nbsp;{this.props.data.main_title}</div></span>
+                            <div id = "main_grid">
+                                <a href = {"search.html?user_id=" + urlParams.get("user_id") + "&string=" + this.props.data.show[0].text}>
+                                <div id = "sub_grid">
+                                    <div id = "sg_img">
+                                        <img src = {this.props.data.show[0].image}/>
+                                    </div>
+                                    <div id = "sg_catg">
+                                        <span>{this.props.data.show[0].text}</span>    
+                                    </div>
+                                </div>
+                                </a>
+                                <a href = {"search.html?user_id=" + urlParams.get("user_id") + "&string=" + this.props.data.show[1].text}>
+                                <div id = "sub_grid">
+                                    <div id = "sg_img">
+                                        <img src = {this.props.data.show[1].image}/>
+                                    </div>
+                                    <div id = "sg_catg">
+                                        <span>{this.props.data.show[1].text}</span>    
+                                    </div>
+                                </div>
+                                </a>
+                                <a href = {"search.html?user_id=" + urlParams.get("user_id") + "&string=" + this.props.data.show[2].text}>
+                                <div id = "sub_grid">
+                                    <div id = "sg_img">
+                                        <img src = {this.props.data.show[2].image}/>
+                                    </div>
+                                    <div id = "sg_catg">
+                                        <span>{this.props.data.show[2].text}</span>
+                                    </div>
+                                </div>
+                                </a>
+                                <a href = {"search.html?user_id=" + urlParams.get("user_id") + "&string=" + this.props.data.show[3].text}>
+                                <div id = "sub_grid">
+                                    <div id = "sg_img">
+                                        <img src = {this.props.data.show[3].image}/>
+                                    </div>
+                                    <div id = "sg_catg">
+                                        <div>{this.props.data.show[3].text}</div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    )
+                }
+            }
+            function addMainpageInfo(mydata){
+                console.log("adding info", mydata)
+                var newdiv = document.createElement("div");
+                //var string = '[{"main_title" : "Todays Deals", "text" : ["electronics", "mobiles", "air conditioners", "washing machines"], "image" : ["c_1.png", "c_2.png", "c_3.png", "c_4.png"]}]';
+                //var newjson = JSON.parse(string);
+                document.querySelector("#maindiv").appendChild(newdiv);
+                ReactDOM.render(
+                    <MainDisplay data = {mydata}></MainDisplay>, newdiv
+                );
+            }
+            var count = 0;
+            const geturl = "/?req_type=mainpage";
+            $.get(geturl, function(mydata, status){
+                console.log(mydata)
+                for (let val = 0; val < mydata.length; val++){
+                addMainpageInfo(mydata[val]);
+                console.log("Data collected form mongodb using nodejs through rustapi")
+                }
+            }
+            )
+        </script>
+        <style>
+            a{
+                text-decoration: none;
+
+            }
+            #mainDisplay{
+                display : grid;
+                grid-template-rows: auto;
+                background-color : #cccccc;
+                border-radius : 8px;
+                height : 370px;
+                width : 1200px;
+                align-items : center;
+                justify-content: center;
+                margin : 20px 200px 20px 200px;
+                box-shadow : inset 0px 0px 42px rgba(69, 69, 69, 0.5);
+            }
+            #title_main{
+                background-color: #ffffff;
+                font-size: 24px;
+                height : 18px;
+                width: 270px;
+                margin: 0px 440px 0px 440px;
+                border-radius: 5px;
+                padding-bottom: 10px;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                box-shadow : 0px 0px 12px rgba(255, 255, 255, 0.6);
+            }
+            #main_grid{
+                display : grid;
+                grid-template-columns: auto auto auto auto;
+            }
+            #mainDisplay span{
+                padding : 10px;
+
+            }
+            #sub_grid{
+                width : 250px;
+                height : 230px;
+                margin : 18px;
+                margin-top : 0px;
+                margin-bottom: 24px;
+                border-radius: 5px;
+                background-color : #ffffff;
+            }
+            #sg_img{
+                display : flex;
+                align-items : center;
+                justify-content: center;
+                padding : 5px;
+                margin : 5px;
+                height : 150px;
+
+            }
+            #sg_img img{
+                
+                max-width : 200px;
+                max-height : 130px;
+            }
+            #sg_catg{
+                font-size : 18px;
+
+                padding-top : 10px;
+                
+                text-align: center;
+
+            }
+            #sg_catg span{
+                width : 350px;
+
+            }
+            #main_img img{
+                width : 100%;
+            }
+            
+        </style>
+
+        <footer id = "footer">
+
+        </footer>
+    </body>
+</html>

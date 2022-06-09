@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script>
+            $(function(){
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+        </script>
+        <div id = "header"></div>
+    </head>
+    <body>
+        <div id = "page_contents">
+            <div id = "userpref">
+
+                <div id = sortby>
+                    Sort By : 
+                    <select id = "sort_type" class = "nohighlight">
+                        <option value = "relevance" selected>Relevance</option>
+                        
+                        <option value = "price_lh">Price - low to high</option>
+                        <option value = "price_hl">Price - high to low</option>
+                        <option value = "name_az">Name - A to Z</option>
+                        <option value = "name_za">Name - Z to A</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+
+                <div id = "price_sort">
+                    Price range : &nbsp;
+                    <input id = "price_min" class = "nohighlight" type = "number" min = "0" max = "100000000" step = "100"/>
+                    &nbsp;to&nbsp;
+                    <input id = "price_max" class = "nohighlight" type = "number" min = "0" max = "100000000" step = "100"/>
+                </div>
+                
+
+                <div id = "discount">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Discount : &nbsp;
+                    <input id = "discount" class = "nohighlight" type = "number" min = "0" max = "100" step = "5"/>
+                    &nbsp;
+                    %
+                </div>
+            </div>
+            <div id = "searchResults"></div>
+            <style>
+                #price_min, #price_max, #sort_type, #discount{
+                    align-items : center;
+                    text-align: center;
+                }
+                #page_contents{
+                    display : grid;
+                    align-items : center;
+                    justify-items : center;
+                    height : max-content;
+                }
+                #userpref{
+                    display : grid;
+                    grid-template-columns: auto auto auto;
+                    background-color: #e0e0e0;
+                    align-items : center;
+                    justify-content : center;
+                    height : max-content;
+                    width : 1100px;
+                    padding-top : 10px;
+                    padding-bottom : 10px;
+                    border-radius: 5px;
+                    margin : 10px;
+                    margin-top : 5px;
+                    box-shadow : 0px 0px 12px rgba(69, 69, 69, 0.3);
+                }
+                #sort_type option{
+                    height : 26px;
+                    background-color : #ffffff;
+                    font-size : 14px;
+                }
+                #sort_type{
+                    height : 30px;
+                    width : 150px;
+                    background-color : #ffffff;
+                    border-radius : 4px;
+                    border : 0px;
+                }
+                #price_sort input{
+                    background-color : white;
+                    width : 68px;
+                    height : 24px;
+                    border-radius: 4px;
+                    border : 0px;
+                }
+                #discount input{
+                    width : 50px;
+                    height : 24px;
+                    border-radius : 4px;
+                    border : 0px;
+                }
+            </style>
+            <script>
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                $("#searchbar").css("background-color", "black");
+                console.log("Given string: ", urlParams.get("string"))
+            </script>
+        </div>
+        <script type = "text/babel">
+            // mini product description for showing search results, etc
+            class ProductMini extends React.Component{
+                handleClick(value) {
+                    return function() {
+                    add_to_cart(value);
+                    }
+                };
+                render(){              
+                    return (
+                        <div id="aa">                            
+                            <div id="details">
+                                <div id="details_img">
+                                <a href = {"product_page.html?user_id=" + urlParams.get("user_id") + "&product_id=" + this.props.data.product_id}><img src={this.props.data.images[0]}/></a>
+                                </div>
+                                <div id="information">
+                                <div id="title_info">
+                                    <a href = {"product_page.html?user_id=" + urlParams.get("user_id") + "&product_id=" + this.props.data.product_id}><div id = "pm_title">{this.props.data.title}</div></a>
+                                    <ul id = "pm_highlights">
+                                        <li>{this.props.data.highlights[0]}</li>
+                                        <li>{this.props.data.highlights[1]}</li>
+                                        <li>{this.props.data.highlights[2]}</li>
+                                        <li>{this.props.data.highlights[3]}</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div id="price_sr">
+                                    <span id="sellingPrice">{this.props.data.price}</span><br /><del id="mrp">{this.props.data.mrp}</del>
+                                    <span id="off">{this.props.data.off}% off</span>
+                                    </div>
+                                    <div id="pur">
+                                    <button id="addcart" onClick = {this.handleClick(this.props.data.product_id)}>Add to Cart</button>
+                                    <button id="buynow">Buy Now</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                    )
+                }
+            }
+            var jsonstr = '[{"product_id" : "abcdefgh", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "₹8,799", "mrp" : "₹9,999", "off" : "10% off"}]';
+            var json_sample = JSON.parse(jsonstr);    
+            function addproduct(data){
+                console.log("this is data from addproduct", data)
+                var newdiv = document.createElement("div"); // created newe element
+                document.querySelector("#maindiv").appendChild(newdiv); // added the new element to maindiv
+                ReactDOM.render(
+                    <ProductMini data = {data}></ProductMini>, newdiv
+                )
+            }
+            function NoProducts(){
+                console.log("Search completed. No results found")
+                var newdiv = document.createElement("div"); // created newe element
+                document.querySelector("#searchResults").appendChild(newdiv); // added the new element to maindiv
+                ReactDOM.render(
+                    <div id = "show_np"><div>Oops! &nbsp;&nbsp; No Results Found</div></div>, newdiv
+                )
+            }
+            //console.log(queryString);
+            const url = "/?req_type=search&string=" + urlParams.get("string");
+                    $.get(url, function(mydata, status){
+                        console.log(mydata)
+                        if (mydata.length > 0){
+                        for (let val = 0; val < mydata.length; val++){
+                        addproduct(mydata[val]);
+                        console.log("Data collected form mongodb using nodejs through rustapi");
+                        }
+                    }
+                    else NoProducts();
+            });
+            function add_to_cart(product_id = urlParams.get("product_id")){
+                console.log("product is being added to cart")
+                var itemurl = "/?req_type=append_cart&user_id="+ urlParams.get("user_id") + "&product_id=" + product_id + "&qty=" + "1";
+                $.get(itemurl, function(product_data, status){
+                    }
+                )
+            } 
+        </script>
+        <style>
+            #show_np{
+                width : 1000px;
+                background-color: #e2e2e2;
+                color: #000000;
+                font-size: 69px;
+                font-weight: 600;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+            }
+            body{
+                background-color: #f0f0f0;
+            }
+            #aa{
+                display : flex;
+                align-items: center;
+                justify-content: center;  
+                padding : 4px;       
+            }
+            #details{
+                display : grid;
+                grid-template-columns: 240px auto;
+                grid-template-rows: 240px;
+                border-radius: 6px;
+                max-width : 1000px;
+                height : max-content;       
+                background-color : #ffffff;  
+                box-shadow : 0px 0px 18px rgba(69, 69, 69, 0.5);
+                margin: 5px;
+                }
+            #details_img{
+                display : flex;
+                align-items :center;
+                /*border : 1px solid black;*/
+                justify-content: center;
+            }
+            #details_img img{
+                max-width : 220px;
+                max-height : 220px;
+            }
+            #information{
+                display : grid;
+                grid-template-columns: minmax(350px, 600px) 200px;
+                /*border : 1px solid black;*/
+                
+            }
+            #information div{
+                border : auto;
+                /*border : 1px solid black;*/
+            }
+            #price_sr{
+                background : 1px solid black;
+                /*padding-top : 20px;
+                padding-left : 30px;*/
+                margin-left : 35px;
+                margin-top : 25px;
+            }
+            #price_sr #mrp{
+                color : #999999;
+                font-size: 16px;
+            }
+            #price_sr #sellingPrice{
+                color : black;
+                font-size : 22px;
+                font-weight : 400;
+            }
+            #price_sr #off{
+                color : #2874f0;
+                padding-left : 4px;
+            }
+            #pm_title{
+                font-weight : 900;
+                font-size: 18px;
+            }
+            #pm_highlights{
+                margin-top : 30px;                
+            }
+            #pur{
+                display : grid;
+                grid-template-rows: auto;
+                align-items: center;
+                align-items: center;
+                justify-content : center;
+                margin-top : 35px;
+            }
+            #pur button{
+                width : 150px;
+                height : 35px;
+                padding : 5px;
+                margin : 10px;
+                border-radius: 6px;
+            }
+            #addcart{
+                background-color: #fd9e00;
+                border : 0px;
+            }
+            #buynow{
+                background-color: #fb641b;
+                border : 0px;
+                margin : 3px;
+            }
+            #title_info{
+                padding : 10px;
+                padding-top : 15px;
+                margin-left : 50px;
+                margin-top : 15px;
+                font-weight : 500;
+                display : grid;
+                grid-template-rows : minmax(0, 30px) auto;
+                height : max-content;
+            }
+        </style>
+    <div id = "maindiv"></div>
+    </body>     
+    <footer id = "footer"></footer>
+    </footer>
+</html>

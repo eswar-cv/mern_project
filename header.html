@@ -1,0 +1,201 @@
+<header>
+  <!-- header -> the topmost part of the page -->
+  <!-- position is fixed to top -->
+  <!-- the div with id 'header' contains all elements of header and it is centered -->
+  <!-- adding jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const queryString = window.location.search;
+            //console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+</script>
+  <script>
+    //var jsonstr = '[{"product_id" : "abcdefgh", "title" : "SAMSUNG Galaxy A72 (Awesome Black, 128 GB) (8 GB RAM)", "images" : ["images/test/s.png"], "highlights" : ["8 GB RAM | 128 GB ROM", "17.02 cm (6.7 inch) Full HD+ Display", "64MP + 12MP + 8MP + 5MP | 32MP Front Camera", "5000 mAh Lithium-ion Battery", "Qualcomm Snapdragon 720G Processor"], "price" : "₹8,799", "mrp" : "₹9,999", "off" : "10% off"}]';
+    //var database = JSON.parse(jsonstr);
+</script>
+  <!-- div - contains elements of header and will be centered in the window -->
+  <div id="header">
+    <a href="home.html?user_id=01"
+      ><img id="header_logo" src="images/layout/logo.png"
+    /></a>
+
+    <div id="search">
+      <input
+        id="searchbar"
+        class="nohighlight"
+        type="text"
+        placeholder="Search for products, brands and more"
+      />
+      <button onclick="searchnow()">
+        <img src="images/layout/search_icon.png" width="26px" />
+      </button>
+    </div>
+    <div style="display: inline-block; min-width: 30px; width: 200px"></div>
+    <a href = "login.html"><button id="login">User</button></a>
+    <a href = "cart.html?user_id=01"><button id="cart">Cart</button></a>
+  </div>
+</header>
+<div style="height: 60px"></div>
+<!-- div to push down the elements under the header -->
+<script>
+  var searchbar = document.getElementById("searchbar");
+  document.addEventListener("keyup", (event) => {
+    if (event.key == "/") $("#searchbar").focus();
+  });
+  searchbar.addEventListener("keypress", (event) => {
+    if (event.key == "Enter") searchnow();
+  });
+  function searchnow() {
+    text = searchbar.value;
+    website = "search.html?user_id=" + urlParams.get("user_id") + "&string=" + text;
+    window.open(website, "_self");
+  }
+</script>
+<!--
+<script>
+    $("#searchdrop").fadeOut();
+    $("#searchbar").focusin(function(){$("#searchdrop").fadeIn(0)});
+    $("#searchbar").focusout(function(){$("#searchdrop").fadeOut(0)});
+</script>
+-->
+<div id="signin_signup">
+  <div id="form_si_su">
+    <button id="btn_sisu_close" onclick='$("#signin_signup").fadeOut(100)'>
+      ✕
+    </button>
+    <div id="sisu_main">
+        
+    </div>
+  </div>
+</div>
+<script>
+  $("#signin_signup").fadeOut(0);
+</script>
+
+<style>
+  footer {
+    clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: calc()
+}
+  #sisu_main {
+    /*border : 1px solid black;*/
+    height: 500px;
+    display: grid;
+    grid-template-columns: 250px 350px;
+  }
+  #signin_signup {
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+  }
+  #form_si_su {
+    background: #fefefe;
+    width: 660px;
+    height: 500px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow :0px 0px 30px rgba(0, 0, 0, 0.8);
+  }
+  #btn_sisu_close {
+    background-color: #ffffff;
+    border: 0px;
+    position: relative;
+    padding: 4px 6px 4px 6px;
+    float: right;
+    font-size: 16px;
+    /*border : 1px solid black;*/
+  }
+  #lilo_form_Text {
+    font-size: 22;
+    padding: 3px;
+  }
+  #btn_submit {
+    width: 150px;
+    height: 24px;
+    background-color: #2874f0;
+    color: white;
+    border-radius: 5px;
+    border-left: 100px;
+  }
+  head,
+  body {
+    margin: 0;
+    height: 100%;
+  }
+  header {
+    background-color: #2874f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: max-content;
+  }
+  #header_logo {
+    width: 160px;
+  }
+  #header {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    align-items: center;
+  }
+  #login,
+  #cart {
+    height: 28px;
+    border-radius: 3px;
+    border: 0px;
+    margin: 10px;
+    width: 100px;
+    font-weight: 600;
+  }
+  #cart {
+    color: white;
+    background-color: #2874f0;
+  }
+  #login {
+    color: #2874f0;
+    background-color: white;
+  }
+  #search input {
+    padding-left: 8px;
+    font-size: 14px;
+
+    float: left;
+    border-radius: 3px 0px 0px 3px;
+    border: 0px;
+    width: 460px;
+  }
+
+  #search input:focus #searchdown {
+    display: block;
+  }
+  .nohighlight:focus {
+    outline: none !important;
+  }
+  #search button {
+    float: right;
+
+    padding: 5px;
+    border: 0px;
+    width: 40px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+  }
+  #search {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    align-items: stretch;
+  }
+</style>
